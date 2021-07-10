@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devices</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css')}}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dataTables.min.css')}}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css')}}">
+    <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> -->
+</head>
+<body>
+    <h1 class="text-center mb-4 mt-4 text-primary">Devices</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <table id="devices" style="width: 100%;">
+                        <thead>
+                            <tr style="text-align: center;" >
+                                <!-- <th>Count</th> -->
+                                <th>IP address</th>
+                                <th>Last Seen</th>
+                                <th>Online</th>
+                                <th>Trusted</th>
+                                <th>Attention</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for device in devices %}
+                            <tr style="text-align: center;">
+                                <!-- <td>{{ loop.index }}</td> -->
+                                <td>{{ device.ip }}</td>
+                                <td>{{ device.last_scanned_time }}</td>
+                                <td>{{ device.online }}</td>
+                                <td>{{ device.trusted }}</td>
+                                <td>{{ device.attention }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <!-- <?php
+    } else {
+        echo "<p class='text-center alert alert-danger mt-5'>No Records</p>";
+    }
+    ?> -->
+<script src="{{ url_for('static',filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static',filename='js/dataTables.min.js')}}"></script>
+ <script>
+    $(()=>{
+        $("#devices").DataTable();
+    })
+ </script>  
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css')}}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css')}}">
+</head>
+<body>
+    <h1 class="text-center mb-4 mt-5 text-color">Log In</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 m-lg-auto col-md-8 m-md-auto col-sm-10 m-sm-auto">
+                <form method="post" onsubmit="return validateForm()" name="form" id="form">
+                    <div class="mb-3">
+                        <label>User Name</label>
+                        <input type="text" class="form-control" name="username" id="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password" id="password" required>
+                    </div>
+                    Don't have an account? <a href="/register">Sign Up</a>
+                    <div class="row">
+                        <div class="m-auto">
+                            <button style="padding: 5px 30px;" class="btn btn-primary mt-4" type="submit" name="login-btn" id="login-btn">Log In</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
