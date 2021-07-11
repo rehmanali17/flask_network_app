@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
         <div class="container-fluid">
-          <a style="font-size: 35px; color:white;"  class="navbar-brand" href="/devices">Home</a>
+          <a style="font-size: 35px; color:white;"  class="navbar-brand" href="/devices"><img style="width: 60px; height:60px; border-radius:50%;" src="{{url_for('static',filename='images/icon.png')}}" alt="Home"></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -43,19 +43,41 @@
                                 <th>IP address</th>
                                 <th>Last Seen</th>
                                 <th>Online</th>
-                                <th>Trusted</th>
                                 <th>Attention</th>
+                                <th>Trusted</th>
+                                <th>Trust</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for device in devices %}
                             <tr style="text-align: center;">
-                                <!-- <td>{{ loop.index }}</td> -->
                                 <td>{{ device[0] }}</td>
                                 <td>{{ device[3] }}</td>
-                                <td>{{ device[6] }}</td>
-                                <td>{{ device[5] }}</td>
-                                <td>{{ device[7] }}</td>
+                                {% if device[6]==1 %}
+                                    <td>True</td>
+                                {% else %}
+                                    <td>False</td>
+                                {% endif %}
+                                {% if device[7]==1 %}
+                                    <td>True</td>
+                                {% else %}
+                                    <td>False</td>
+                                {% endif %}
+                                {% if device[5]==1 %}
+                                    <td>True</td>
+                                {% else %}
+                                    <td>False</td>
+                                {% endif %}
+                                {% if device[5]==0 %}
+                                    <td>
+                                        <form action="{{url_for('trustDevice')}}" method="post">
+                                            <input type="hidden" name="ip" value={{device[0]}}>
+                                            <button type="submit" class="btn btn-outline-primary">Trust</button>
+                                        </form>
+                                    </td>
+                                {% else %}
+                                    <td>Trusted</td>
+                                {% endif %}
                             </tr>
                             {% endfor %}
                         </tbody>

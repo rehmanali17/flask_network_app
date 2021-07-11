@@ -64,6 +64,18 @@ def devices():
     else:
         return redirect(url_for('login'))
     
+@app.route('/trustDevice', methods=['POST'])
+def trustDevice():
+    if request.method == 'POST':
+        ip = request.form['ip']
+        value = 1
+        with sqlite3.connect('data.db') as conn:
+            cursor = conn.cursor()
+            cursor.execute('UPDATE devices set trusted=? where ip=?',(value,ip,))
+            conn.commit()
+        flash("Device trusted successfully")
+        return redirect(url_for('devices'))
+    
 @app.route('/incidents')
 def incidents():
     if 'username' in session:
