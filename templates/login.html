@@ -10,6 +10,11 @@
 </head>
 <body>
     <h1 class="text-center mb-4 mt-5 text-color">Log In</h1>
+    {% with message = get_flashed_messages()  %}
+    {% if message %}
+        <p class="text-center alert alert-danger mb-3 mt-3">{{ message[0] }}</p>
+    {% endif %}
+    {% endwith %}
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6 m-lg-auto col-md-8 m-md-auto col-sm-10 m-sm-auto">

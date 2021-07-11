@@ -4,7 +4,7 @@ from flask import (
     request,
     session,
     redirect,
-    g,
+    flash,
     url_for
 )
 import sqlite3
@@ -26,7 +26,10 @@ def login():
            session['username'] = user[0]
            return redirect(url_for('devices')) 
        else:
-           print("Not Exists")
+           flash("User does not Exists")
+           return redirect(url_for('login'))
+   if 'username' in session:
+        return redirect(url_for('devices')) 
    return render_template('login.html')
 
 
@@ -45,6 +48,7 @@ def register():
             cursor.execute("INSERT into users values(?,?,?,?,?,?)",(username,password,first_name,last_name,createDate,lastLoggedIn))
             conn.commit()
             session['username'] = username
+            flash("Successfully Registered")
             return redirect(url_for('devices')) 
    return render_template('register.html')
 
@@ -79,6 +83,27 @@ def incident(incident_id):
             cursor.execute('SELECT * from incident where id=?',(incident_id,))
             incident = cursor.fetchone()
         return render_template('incident.html', incident=incident)
+    else:
+        return redirect(url_for('login'))
+
+@app.route('/change-password' , methods = ['GET', 'POST'])
+def changePassword():
+   if request.method == 'POST':
+       password = request.form['password']
+       username = session['username']
+       with sqlite3.connect('data.db') as conn:
+           cursor = conn.execute('UPDATE users set password=? where username=?',(password,username,))
+           conn.commit()
+           flash("Password changed successfully")
+           return redirect(url_for('changePassword'))
+   return render_template('change-password.html')
+
+    
+@app.route("/logout")
+def logout():
+    if 'username' in session:
+        session.pop('username',None)
+        return redirect(url_for('login'))
     else:
         return redirect(url_for('login'))
 

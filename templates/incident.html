@@ -10,7 +10,23 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css')}}">
 </head>
 <body>
-    <h1 class="text-center mb-4 mt-4">{{ incident[2] }}</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container-fluid">
+          <a style="font-size: 35px; color:white;"  class="navbar-brand" href="/devices">Home</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+              <a style="font-size: 20px; color:white;"  class="nav-link mr-3" href="/devices">Devices</a>   
+              <a style="font-size: 20px; color:white;" class="nav-link mr-3" href="/incidents">Incidents</a>
+              <a style="font-size: 20px; color:white;" class="nav-link mr-3" href="/change-password">Change Password</a>
+              <a style="font-size: 20px; color:white;" class="nav-link mr-3" href="/logout" >Log Out</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    <h1 class="text-center mb-5 mt-5 text-primary">{{ incident[2] }}</h1>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-5 m-auto">

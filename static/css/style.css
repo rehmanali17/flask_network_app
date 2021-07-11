@@ -1,17 +1,1 @@
-h1 {
-  color: red;
-}
 
-tr td{
-  color: red;
-}
-
-th{
-  width: 30% !important;
-  text-align: left !important;
-  font-size: 30px !important;
-}
-td{
-  width: 70% !important;
-  text-align: left !important;
-}
