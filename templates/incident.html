@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devices</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css')}}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dataTables.min.css')}}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css')}}">
+</head>
+<body>
+    <h1 class="text-center mb-4 mt-4">{{ incident[2] }}</h1>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-5 m-auto">
+                    <table class="table table-striped" style="width: 100%;">
+                        <tbody>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">Name</th>
+                                <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">{{incident[2]}}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">Opened</th>
+                                {% if incident[1]==1 %}
+                                    <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">True</td>
+                                {% else %}
+                                    <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">False</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">IP</th>
+                                <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">{{incident[3]}}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">Mac</th>
+                                <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">{{incident[4]}}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">Source</th>
+                                <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">{{incident[5]}}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">Contained</th>
+                                {% if incident[6]==1 %}
+                                    <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">True</td>
+                                {% else %}
+                                    <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">False</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">Time Contained</th>
+                                <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">{{incident[7]}}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">Forensic</th>
+                                {% if incident[8]==1 %}
+                                    <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">True</td>
+                                {% else %}
+                                    <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">False</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">Forensic Timestamp</th>
+                                <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">{{incident[9]}}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">Closed Notes</th>
+                                <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">{{incident[10]}}</td>
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">False Positive</th>
+                                {% if incident[11]==1 %}
+                                    <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">True</td>
+                                {% else %}
+                                    <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">False</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <th style="width: 40%; text-align:center; font-size:18px;">FPS Notes</th>
+                                <td style="width: 60%; text-align:left; font-size:18px;font-weight:300;">{{incident[12]}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    <!-- <?php
+    } else {
+        echo "<p class='text-center alert alert-danger mt-5'>No Records</p>";
+    }
+    ?> -->
+<script src="{{ url_for('static',filename='js/jquery.min.js')}}"></script>
+<script src="{{ url_for('static',filename='js/dataTables.min.js')}}"></script>
+ <script>
+    $(()=>{
+        $("#incidents").DataTable();
+    })
+ </script>  
+</body>
+</html>

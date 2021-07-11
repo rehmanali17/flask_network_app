@@ -30,11 +30,11 @@
                             {% for device in devices %}
                             <tr style="text-align: center;">
                                 <!-- <td>{{ loop.index }}</td> -->
-                                <td>{{ device.ip }}</td>
-                                <td>{{ device.last_scanned_time }}</td>
-                                <td>{{ device.online }}</td>
-                                <td>{{ device.trusted }}</td>
-                                <td>{{ device.attention }}</td>
+                                <td>{{ device[0] }}</td>
+                                <td>{{ device[3] }}</td>
+                                <td>{{ device[6] }}</td>
+                                <td>{{ device[5] }}</td>
+                                <td>{{ device[7] }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

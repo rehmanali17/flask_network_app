@@ -1,27 +1,17 @@
 h1 {
   color: red;
 }
-/* 
-table thead tr {
-  background-color: #0275d8;
-  color: #ffffff;
-  text-align: left;
-  font-weight: bold;
+
+tr td{
+  color: red;
 }
 
-table th,
-table td {
-  padding: 12px 15px;
+th{
+  width: 30% !important;
+  text-align: left !important;
+  font-size: 30px !important;
 }
-
-table tbody tr {
-  border-bottom: 1px solid #491a1a;
+td{
+  width: 70% !important;
+  text-align: left !important;
 }
-
-table tbody tr:nth-of-type(even) {
-  background-color: #4b1f1f;
-}
-
-table tbody tr:last-of-type {
-  border-bottom: 2px solid #0275d8;
-} */

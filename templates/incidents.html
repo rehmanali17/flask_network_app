@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Devices</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='css/bootstrap.min.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='css/dataTables.min.css')}}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='css/style.css')}}"
+    />
+    <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> -->
+  </head>
+  <body>
+    <h1 class="text-center mb-4 mt-4 text-primary">Incidents</h1>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table id="incidents" style="width: 100%">
+            <thead>
+              <tr style="text-align: center">
+                <!-- <th>Count</th> -->
+                <th>Name</th>
+                <th>Opened</th>
+                <th>Contained</th>
+                <th>Time Contained</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for incident in incidents %}
+              <tr style="text-align: center">
+                <td>
+                  <a href="/incident/{{incident[0]}}"> {{ incident[2] }} </a>
+                </td>
+                {% if incident[1]==1 %}
+                <td>True</td>
+                {% else %}
+                <td>False</td>
+                {% endif %} {% if incident[6]==1 %}
+                <td>True</td>
+                {% else %}
+                <td>False</td>
+                {% endif %}
+                <td>{{ incident[7] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- <?php
+    } else {
+        echo "<p class='text-center alert alert-danger mt-5'>No Records</p>";
+    }
+    ?> -->
+    <script src="{{ url_for('static',filename='js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static',filename='js/dataTables.min.js')}}"></script>
+    <script>
+      $(() => {
+        $("#incidents").DataTable();
+      });
+    </script>
+  </body>
+</html>
