@@ -11,6 +11,15 @@
     <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css"> -->
 </head>
 <body>
+    <div id="modal-box" class="modal-box">
+        <div id="modal" class="modal">
+            <button id="close-btn" class="close-btn">&times;</button>
+            <table class="table table-striped m-5" style="width: 100%;">
+                <tbody id="table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
         <div class="container-fluid">
           <a style="font-size: 35px; color:white;"  class="navbar-brand" href="/devices"><img style="width: 60px; height:60px; border-radius:50%;" src="{{url_for('static',filename='images/icon.png')}}" alt="Home"></a>
@@ -39,7 +48,6 @@
                     <table id="devices" style="width: 100%;">
                         <thead>
                             <tr style="text-align: center;" >
-                                <!-- <th>Count</th> -->
                                 <th>IP address</th>
                                 <th>Last Seen</th>
                                 <th>Online</th>
@@ -51,7 +59,9 @@
                         <tbody>
                             {% for device in devices %}
                             <tr style="text-align: center;">
-                                <td>{{ device[0] }}</td>
+                                <td>
+                                    <a href="" id="ip-btn" data-device="{{device}}">{{ device[0] }}</a>
+                                </td>
                                 <td>{{ device[3] }}</td>
                                 {% if device[6]==1 %}
                                     <td>True</td>
@@ -96,6 +106,39 @@
     $(()=>{
         $("#devices").DataTable();
     })
+    $("#modal-box").css("display","none");
+    $("#modal").css("display","none");
+    $("#close-btn").click(()=>{
+        $("#modal-box").css("display","none");
+        $("#modal").css("display","none");
+        $("#table-body").html("");
+    })
+    $(document).on("click","#ip-btn", function(e){
+        thAttributes = ["IP","Mac","Last Scanned Date","Last Scanned Time","Last Scanned Year","Trusted","Online","Attention","Files Added","Files Removed"];
+        e.preventDefault();
+        $("#modal-box").css("display","block");
+        $("#modal").css("display","block");
+        let device = $(this).data('device');
+        let deviceAttributes = device.split(", ");
+        index = 0;
+        for (let attribute of deviceAttributes){
+            var i=0;
+            while (i <= 1 ){
+                attribute = attribute.replace("(","");
+                attribute = attribute.replace(")","");
+                attribute = attribute.replace("'","");
+                i++;
+            }
+            if((index == 5 || index == 6 || index == 7) && attribute == 1){
+                attribute = "True"
+            }else if((index == 5 || index == 6 || index == 7) && attribute == 0){
+                attribute = "False"
+            }
+            $("#table-body").append('<tr><th class="th">'+ thAttributes[index] +'</th><td class="td">'+ attribute +'</td></tr>')
+            index++;
+        }
+        
+      })
  </script>  
 </body>
 </html>
