@@ -34,21 +34,21 @@ IPforward = "iptables -A FORWARD -j DROP"
 IPdrop1 = "iptables -A OUTPUT -j DROP"
 
 
-def create_connection(db_file):
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-        return conn
-    except Error as e:
-        print(e)
+# def create_connection(db_file):
+#     conn = None
+#     try:
+#         conn = sqlite3.connect(db_file)
+#         return conn
+#     except Error as e:
+#         print(e)
 
-    return conn
-def create_table(conn, create_table_sql):
-    try:
-        c = conn.cursor()
-        c.execute(create_table_sql)
-    except Error as e:
-        print(e)
+#     return conn
+# def create_table(conn, create_table_sql):
+#     try:
+#         c = conn.cursor()
+#         c.execute(create_table_sql)
+#     except Error as e:
+#         print(e)
 
 def contain(victim):
         print(victim)
@@ -75,43 +75,43 @@ def uncontain(victim):
         stdin, stdout, stderr = ssh.exec_command(IPrestore)
         ssh.close()
 
-def main():
-    database = r"data.db" 
-    sql_create_table = """ CREATE TABLE IF NOT EXISTS incident (
-                                        id int,
-                                        incident_open boolean default 0,
-                                        IP text,
-                                        mac text,
-                                        source text,
-                                        contained boolean default 0,
-                                        time_contained text,
-                                        forensic text,
-                                        foresnic_timestamp text,
-                                        closed_notes text,
-                                        first_seen_year text,
-                                        allowed boolean default 0,
-                                        fp_notes text
-                                    ); """
-    conn = create_connection(database)
-    if conn is not None:
-        create_table(conn, sql_create_table)
-    else:
-        cursor = conn.cursor()
-    dp = conn.cursor()
-    dp.execute("SELECT * FROM incident where id= 96") #Hard coded a value for testing, this will be fed by a different tool later
-    rows = dp.fetchone()
-    status = rows[6]
-    if status == 0:
-        victim = rows[3]
-        contain(victim)
-        conn.execute("""Update incident set contained = ? where id = ?""", ["1",96])
-        conn.commit()
-    else:
-        victim = rows[3]
-        uncontain(victim)
-        conn.execute("""Update incident set contained = ? where id = ?""", ["0",96])
-        conn.commit()
-main()
+# def main():
+#     database = r"data.db" 
+#     sql_create_table = """ CREATE TABLE IF NOT EXISTS incident (
+#                                         id int,
+#                                         incident_open boolean default 0,
+#                                         IP text,
+#                                         mac text,
+#                                         source text,
+#                                         contained boolean default 0,
+#                                         time_contained text,
+#                                         forensic text,
+#                                         foresnic_timestamp text,
+#                                         closed_notes text,
+#                                         first_seen_year text,
+#                                         allowed boolean default 0,
+#                                         fp_notes text
+#                                     ); """
+#     conn = create_connection(database)
+#     if conn is not None:
+#         create_table(conn, sql_create_table)
+#     else:
+#         cursor = conn.cursor()
+#     dp = conn.cursor()
+#     dp.execute("SELECT * FROM incident where id= 96") #Hard coded a value for testing, this will be fed by a different tool later
+#     rows = dp.fetchone()
+#     status = rows[6]
+#     if status == 0:
+#         victim = rows[3]
+#         contain(victim)
+#         conn.execute("""Update incident set contained = ? where id = ?""", ["1",96])
+#         conn.commit()
+#     else:
+#         victim = rows[3]
+#         uncontain(victim)
+#         conn.execute("""Update incident set contained = ? where id = ?""", ["0",96])
+#         conn.commit()
+# main()
 
 
 
