@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Devices</title>
+    <title>Incidents</title>
     <link
       rel="stylesheet"
       type="text/css"
@@ -40,6 +40,11 @@
       </div>
     </nav>
     <h1 class="text-center mb-4 mt-4 text-primary">Incidents</h1>
+    {% with message = get_flashed_messages()  %}
+    {% if message %}
+        <p class="text-center alert alert-success mb-3 mt-3">{{ message[0] }}</p>
+    {% endif %}
+    {% endwith %}
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -50,6 +55,7 @@
                 <th>Opened</th>
                 <th>Contained</th>
                 <th>Time Contained</th>
+                <th>Close Incident</th>
               </tr>
             </thead>
             <tbody>
@@ -68,6 +74,16 @@
                 <td>False</td>
                 {% endif %}
                 <td>{{ incident[7] }}</td>
+                {% if incident[1]==1 %}
+                                    <td>
+                                        <form action="{{url_for('closeIncident')}}" method="post">
+                                            <input type="hidden" name="ip" value={{incident[3]}}>
+                                            <button type="submit" class="btn btn-outline-primary">Close</button>
+                                        </form>
+                                    </td>
+                                {% else %}
+                                    <td>Closed</td>
+                                {% endif %}
               </tr>
               {% endfor %}
             </tbody>

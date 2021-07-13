@@ -105,13 +105,13 @@
  <script>
     $(()=>{
         $("#devices").DataTable();
-    })
     $("#modal-box").css("display","none");
     $("#modal").css("display","none");
     $("#close-btn").click(()=>{
         $("#modal-box").css("display","none");
         $("#modal").css("display","none");
         $("#table-body").html("");
+        $("#buttons-div").remove();
     })
     $(document).on("click","#ip-btn", function(e){
         thAttributes = ["IP","Mac","Last Scanned Date","Last Scanned Time","Last Scanned Year","Trusted","Online","Attention","Files Added","Files Removed"];
@@ -121,6 +121,7 @@
         let device = $(this).data('device');
         let deviceAttributes = device.split(", ");
         index = 0;
+        let ip;
         for (let attribute of deviceAttributes){
             var i=0;
             while (i <= 1 ){
@@ -128,6 +129,9 @@
                 attribute = attribute.replace(")","");
                 attribute = attribute.replace("'","");
                 i++;
+            }
+            if (index==0){
+                ip=attribute;
             }
             if((index == 5 || index == 6 || index == 7) && attribute == 1){
                 attribute = "True"
@@ -137,8 +141,34 @@
             $("#table-body").append('<tr><th class="th">'+ thAttributes[index] +'</th><td class="td">'+ attribute +'</td></tr>')
             index++;
         }
-        
-      })
+        $("#modal").append('<div id="buttons-div" class="mb-4 w-100 text-center"><button id="contain-btn" class="btn btn-outline-success ml-auto mr-3" data-ipcontain='+ip+'>Contain</button><button id="uncontain-btn" class="btn btn-outline-danger ml-3" data-ipuncontain='+ip+'>Uncontain</button></div>');
+      });
+
+      $(document).on("click","#contain-btn",function(){
+          let ip=$(this).data("ipcontain");
+          $.ajax({
+              url: '/contain-ip',
+              type: 'POST',
+              data:{ip}
+          }).done(function(data){
+            alert(data.message);
+          });
+      });
+      
+      $(document).on("click","#uncontain-btn",function(){
+        let ip=$(this).data("ipuncontain");
+        $.ajax({
+            url: '/uncontain-ip',
+            type: 'POST',
+            data:{ip}
+        }).done(function(data){
+          alert(data.message);
+        });
+    });
+
+
+    })
+
  </script>  
 </body>
 </html>

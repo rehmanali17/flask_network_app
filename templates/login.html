@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Log In</title>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.min.css')}}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css')}}">
 </head>
 <body>
-    <h1 class="text-center mb-4 mt-5 text-color">Log In</h1>
+    <div class="text-center"><img class="img" src="{{ url_for('static',filename='images/login_page.png')}}" alt="Login"></div>
+    <h1 class="text-center mb-4 text-primary">Log In</h1>
     {% with message = get_flashed_messages()  %}
     {% if message %}
         <p class="text-center alert alert-danger mb-3 mt-3">{{ message[0] }}</p>
